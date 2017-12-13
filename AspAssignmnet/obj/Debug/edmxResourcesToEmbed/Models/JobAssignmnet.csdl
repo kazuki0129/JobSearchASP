@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JobAssignmentMvcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="JobAssignmentMvcEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Companies" EntityType="JobAssignmentMvcModel.Company" />
+    <EntitySet Name="Jobs" EntityType="JobAssignmentMvcModel.Job" />
+    <AssociationSet Name="FK_Job_ToTable" Association="JobAssignmentMvcModel.FK_Job_ToTable">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <EntitySet Name="Roles" EntityType="JobAssignmentMvcModel.Role" />
+    <EntitySet Name="Users" EntityType="JobAssignmentMvcModel.User" />
+    <AssociationSet Name="FK_User_ToTable" Association="JobAssignmentMvcModel.FK_User_ToTable">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CompanyId" />
+    </Key>
+    <Property Name="CompanyId" Type="Int32" Nullable="false" />
+    <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyAdress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Jobs" Relationship="JobAssignmentMvcModel.FK_Job_ToTable" FromRole="Company" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="JobId" />
+    </Key>
+    <Property Name="JobId" Type="Int32" Nullable="false" />
+    <Property Name="JobName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="JobLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="JobPosiotion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyId" Type="Int32" />
+    <NavigationProperty Name="Company" Relationship="JobAssignmentMvcModel.FK_Job_ToTable" FromRole="Job" ToRole="Company" />
+    <Property Name="JobPublishedDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <Association Name="FK_Job_ToTable">
+    <End Type="JobAssignmentMvcModel.Company" Role="Company" Multiplicity="0..1" />
+    <End Type="JobAssignmentMvcModel.Job" Role="Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyId" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RolesID" />
+    </Key>
+    <Property Name="RolesID" Type="Int32" Nullable="false" />
+    <Property Name="RoleName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Users" Relationship="JobAssignmentMvcModel.FK_User_ToTable" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="UserPassword" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserDocument" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="RoleID" Type="Int32" />
+    <NavigationProperty Name="Role" Relationship="JobAssignmentMvcModel.FK_User_ToTable" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_User_ToTable">
+    <End Type="JobAssignmentMvcModel.Role" Role="Role" Multiplicity="0..1" />
+    <End Type="JobAssignmentMvcModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RolesID" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<AspAssignmnet.Models.Job>
+
+@{
+    ViewBag.Title = "ListJob";
+}
+
+<h2>List of Job</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.JobName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobLocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobPosiotion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobPublishedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company.CompanyName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobPosiotion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobPublishedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company.CompanyName)
+            </td>
+        </tr>
+    }
+
+</table>

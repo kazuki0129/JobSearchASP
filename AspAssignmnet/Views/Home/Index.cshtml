@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Job Searching ITD";
+}
+
+<div class="jumbotron">
+    <h1 style="text-align:center">Inbeeb by ITD Canada</h1>
+    @if (User.Identity.IsAuthenticated) {
+        
+        <p class="lead" style="text-align:center">Weclcome: @(User.Identity.IsAuthenticated ? HttpContext.Current.User.Identity.Name.ToUpper() : "Guest" )</p>
+            @*<p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>*@
+        
+    }
+</div>
+
+@using (Html.BeginForm("ListJob", "Job", FormMethod.Get))
+{
+    
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        <form class="form-inline" >
+            <div class="col-md-2 col-md-offset-3">
+                <input type="text" class="form-control" name="searchByName" placeholder="What kind of Job?" />
+            </div>
+
+            <div class="col-md-2">
+                <input type="text" class="form-control" name="searchByLocation" placeholder="Location: eg. BC, Canada" />
+            </div>
+
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success" name="submit">Search</button>
+            </div>
+
+        </form>
+
+    </div>
+}
+
+<div class="container add-margin">
+    <div class="row">
+        <p>@Html.ActionLink("List of Jobs Available", "Index", "Job") | @Html.ActionLink("List of Company Enrolled", "Index", "Company")</p>
+    </div>
+
+</div>
+
+@*<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>*@
