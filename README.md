@@ -1,6 +1,9 @@
 # JobSearchASP
-Job Search Engine in C# with ASP.NET  
+Job Search Engine for helping users or employees to find jobs and post jobs.
 
+> Technologies  
+
+C#, ASP.NET(MVC), Bootstrap
 
 
 > DataBases  
